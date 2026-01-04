@@ -26,6 +26,18 @@ struct ContentView: View {
         return amountPerPerson
     }
     
+    var totalAmount: Double {
+        let amount: Double
+        
+        if checkAmount == 0.0 {
+            amount = checkAmount
+            
+            return amount
+        } else {
+            return checkAmount + Double(tipPercentage)
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
