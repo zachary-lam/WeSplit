@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    let localCurrency: String = Locale.current.currency?.identifier ?? "USD"
+    
     @State private var checkAmount: Double = 0.0
     @State private var numberOfPeople: Int = 2
     @State private var tipPercentage: Int = 20
@@ -42,7 +44,7 @@ struct ContentView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    TextField("Amount", value: $checkAmount, format: .currency(code: localCurrency))
                         .keyboardType(.decimalPad)
                         .focused($amountIsFocused)
                     
@@ -64,11 +66,11 @@ struct ContentView: View {
                 }
                 
                 Section("Total amount") {
-                    Text(totalAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    Text(totalAmount, format: .currency(code: localCurrency))
                 }
                 
                 Section("Amount per person") {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    Text(totalPerPerson, format: .currency(code: localCurrency))
                 }
             }
             .navigationTitle("WeSplit")
