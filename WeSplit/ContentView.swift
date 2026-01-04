@@ -58,11 +58,11 @@ struct ContentView: View {
                 
                 Section("Tip %") {
                     Picker("Tip %", selection: $tipPercentage) {
-                        ForEach(tipPercentages, id: \.self) {
+                        ForEach(0..<101) {
                             Text($0, format: .percent)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.navigationLink)
                 }
                 
                 Section("Total amount") {
