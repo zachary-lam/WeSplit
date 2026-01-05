@@ -62,6 +62,7 @@ struct ContentView: View {
                         }
                         .pickerStyle(.navigationLink)
                     }
+                    .listRowBackground(Rectangle().fill(.thinMaterial)) // use Rectangle to conform to View and fill with colour
                     
                     Section("Tip %") {
                         Picker("Tip %", selection: $tipPercentage) {
@@ -71,14 +72,17 @@ struct ContentView: View {
                         }
                         .pickerStyle(.navigationLink)
                     }
+                    .listRowBackground(Rectangle().fill(.thinMaterial))
                     
                     Section("Total amount") {
                         Text(totalAmount, format: .currency(code: localCurrency))
                     }
+                    .listRowBackground(Rectangle().fill(.thinMaterial))
                     
                     Section("Amount per person") {
                         Text(totalPerPerson, format: .currency(code: localCurrency))
                     }
+                    .listRowBackground(Rectangle().fill(.thinMaterial))
                 }
                 .navigationTitle("WeSplit")
                 .toolbar {
