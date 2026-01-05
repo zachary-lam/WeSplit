@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var numberOfPeople: Int = 2
     @State private var tipPercentage: Int = 20
     @FocusState private var amountIsFocused: Bool
+    @State private var showAlert: Bool = false
     
     let tipPercentages: Array<Int> = [10, 15, 20, 25, 0]
     
@@ -83,6 +84,18 @@ struct ContentView: View {
                         Text(totalPerPerson, format: .currency(code: localCurrency))
                     }
                     .listRowBackground(Rectangle().fill(.thinMaterial))
+                    
+                    Button("Confirm payment") {
+                        showAlert = true
+                    }
+                    .alert("Thank you", isPresented: $showAlert) {
+                        Button("Confirm", role: .confirm) {}
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text(totalPerPerson, format: .currency(code: localCurrency))
+                    }
+                    .listRowBackground(Rectangle().fill(.thinMaterial))
+
                 }
                 .navigationTitle("WeSplit")
                 .toolbar {
