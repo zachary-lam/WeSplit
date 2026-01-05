@@ -42,44 +42,53 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: localCurrency))
-                        .keyboardType(.decimalPad)
-                        .focused($amountIsFocused)
+            ZStack {
+                AngularGradient(colors: [
+                    Color(red: 0.1, green: 0.1, blue: 0.12),
+                    Color(red: 0.2, green: 0.15, blue: 0.26)],
+                                center: .center, angle: .degrees(45.0))
+                .ignoresSafeArea()
+                
+                Form {
+                    Section {
+                        TextField("Amount", value: $checkAmount, format: .currency(code: localCurrency))
+                            .keyboardType(.decimalPad)
+                            .focused($amountIsFocused)
+                        
+                        Picker("Number of people", selection: $numberOfPeople) {
+                            ForEach(2..<100) {
+                                Text("\($0) people")
+                            }
+                        }
+                        .pickerStyle(.navigationLink)
+                    }
                     
-                    Picker("Number of people", selection: $numberOfPeople) {
-                        ForEach(2..<100) {
-                            Text("\($0) people")
+                    Section("Tip %") {
+                        Picker("Tip %", selection: $tipPercentage) {
+                            ForEach(0..<101) {
+                                Text($0, format: .percent)
+                            }
+                        }
+                        .pickerStyle(.navigationLink)
+                    }
+                    
+                    Section("Total amount") {
+                        Text(totalAmount, format: .currency(code: localCurrency))
+                    }
+                    
+                    Section("Amount per person") {
+                        Text(totalPerPerson, format: .currency(code: localCurrency))
+                    }
+                }
+                .navigationTitle("WeSplit")
+                .toolbar {
+                    if amountIsFocused {
+                        Button("Done") {
+                            amountIsFocused = false
                         }
                     }
-                    .pickerStyle(.navigationLink)
                 }
-                
-                Section("Tip %") {
-                    Picker("Tip %", selection: $tipPercentage) {
-                        ForEach(0..<101) {
-                            Text($0, format: .percent)
-                        }
-                    }
-                    .pickerStyle(.navigationLink)
-                }
-                
-                Section("Total amount") {
-                    Text(totalAmount, format: .currency(code: localCurrency))
-                }
-                
-                Section("Amount per person") {
-                    Text(totalPerPerson, format: .currency(code: localCurrency))
-                }
-            }
-            .navigationTitle("WeSplit")
-            .toolbar {
-                if amountIsFocused {
-                    Button("Done") {
-                        amountIsFocused = false
-                    }
-                }
+                .scrollContentBackground(.hidden)
             }
         }
     }
